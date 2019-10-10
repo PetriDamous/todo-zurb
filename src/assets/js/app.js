@@ -16,9 +16,69 @@ require('foundation-sites');
 
 $(document).foundation();
 
+const todos = [
+    {
+        text: 'study JavaScript',
+        completed: true
+    }, {
+        text: 'finish Sass exercise',
+        completed: false
+    }, {
+        text: 'complete SVG exercise',
+        completed: false       
+    }, {
+        text: 'feed the monkey',
+        completed: true      
+    }, {
+        text: 'beat mega man x9',
+        completed: false
+    }
+];
 
-let ps = document.querySelectorAll('p');
 
-ps.forEach(function(p) {
-    if (p.textContent.includes(' the ')) p.remove();
+const getIncomplete = todos.filter(function(todo) {
+    return !todo.completed;
 });
+
+const incomplete = document.createElement('h2');
+incomplete.textContent = `You have ${getIncomplete.length} todos left.`;
+document.querySelector('body').appendChild(incomplete);
+
+todos.forEach(function(todo) {
+    const p = document.createElement('p');
+    p.textContent = todo.text;
+    document.querySelector('body').appendChild(p);
+    console.log(p)
+});
+
+const button = document.querySelector("button[class='button primary']");
+button.addEventListener("click", function(e) {
+    console.log('button is clicked');
+});
+
+
+/*
+// You have 3 todos left (p element)
+// Add a p for each todo above (use text value)
+
+const todosLeft = document.createElement('p');
+todosLeft.textContent = `You have ${leftCount(todos)} todos left.`;
+document.body.appendChild(todosLeft);
+
+function leftCount(todos) {
+    let count = 0;
+
+    todos.forEach(function(todo) {
+        if (todo.completed === false) count += 1;
+    });
+
+    return count;
+}
+*/
+
+// Remove multiple elements
+// let ps = document.querySelectorAll('p');
+// 
+// ps.forEach(function(p) {
+    // if (p.textContent.includes(' the ')) p.remove();
+// });
