@@ -35,6 +35,9 @@ const todos = [
     }
 ];
 
+const addBtn = document.getElementById('add-item');
+const searchItem = document.getElementById('search-item');
+console.log(searchItem);
 
 const getIncomplete = todos.filter(function(todo) {
     return !todo.completed;
@@ -51,9 +54,13 @@ todos.forEach(function(todo) {
     console.log(p)
 });
 
-const button = document.getElementById("add-item");
-button.addEventListener("click", function(e) {
+
+addBtn.addEventListener('click', function(e) {
     console.log('button is clicked');
+});
+
+searchItem.addEventListener('input', function(e) {
+    console.log(e.target.value);
 });
 
 
