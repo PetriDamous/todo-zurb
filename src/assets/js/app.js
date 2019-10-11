@@ -51,7 +51,7 @@ todos.forEach(function(todo) {
     console.log(p)
 });
 
-const button = document.querySelector("button[class='button primary']");
+const button = document.getElementById("add-item");
 button.addEventListener("click", function(e) {
     console.log('button is clicked');
 });
