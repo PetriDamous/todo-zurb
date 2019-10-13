@@ -35,32 +35,57 @@ const todos = [
     }
 ];
 
-const addBtn = document.getElementById('add-item');
-const searchItem = document.getElementById('search-item');
-console.log(searchItem);
+// Elements
+const incomplete = document.getElementById('incomplete');
+const todoItems = document.getElementById('todo-items');
 
-const getIncomplete = todos.filter(function(todo) {
-    return !todo.completed;
-});
+// Components
+const addBtn = document.getElementById('add-btn');
+const searchField = document.getElementById('search-field');
 
-const incomplete = document.createElement('h2');
-incomplete.textContent = `You have ${getIncomplete.length} todos left.`;
-document.querySelector('body').appendChild(incomplete);
+// Filters
+const filters = {
+    searchTodo: ''
+}
 
-todos.forEach(function(todo) {
-    const p = document.createElement('p');
-    p.textContent = todo.text;
-    document.querySelector('body').appendChild(p);
-    console.log(p)
-});
+
+function renderTodos (todos, filters) {
+    const filteredTodos = todos.filter(function (todo) {
+        return todo.text.toLowerCase().includes(filters.searchTodo.toLowerCase());
+    });
+
+    todoItems.innerHTML = '';
+
+    filteredTodos.forEach(function (todo) {
+        const todoEl = document.createElement('p');
+        todoEl.className = 'todo';
+        todoEl.textContent = `${todo.text}: ${todo.completed}`;
+        todoItems.appendChild(todoEl);
+    });
+
+    getIncomplete(filteredTodos);
+}
+
+function getIncomplete (todos) {
+    const todoIncomplete = todos.filter(function(todo) {
+        return !todo.completed;
+    });    
+
+    incomplete.textContent = `You have ${todoIncomplete.length} todos left.`;
+}
+
+renderTodos(todos, filters);
+
+
 
 
 addBtn.addEventListener('click', function(e) {
     console.log('button is clicked');
 });
 
-searchItem.addEventListener('input', function(e) {
-    console.log(e.target.value);
+searchField.addEventListener('input', function(e) {
+  filters.searchTodo = e.target.value;
+  renderTodos(todos, filters);
 });
 
 
