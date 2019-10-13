@@ -40,7 +40,8 @@ const incomplete = document.getElementById('incomplete');
 const todoItems = document.getElementById('todo-items');
 
 // Components
-const addBtn = document.getElementById('add-btn');
+const addForm = document.getElementById('add-form');
+const removeBtn = document.getElementById('remove-btn');
 const searchField = document.getElementById('search-field');
 
 // Filters
@@ -76,17 +77,46 @@ function getIncomplete (todos) {
 
 renderTodos(todos, filters);
 
-
-
-
-addBtn.addEventListener('click', function(e) {
-    console.log('button is clicked');
-});
-
 searchField.addEventListener('input', function(e) {
-  filters.searchTodo = e.target.value;
-  renderTodos(todos, filters);
+    filters.searchTodo = e.target.value;
+    renderTodos(todos, filters);
 });
+
+addForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const value = e.target.addTodo.value;
+    console.log(e.target)
+    todos.push(
+        {
+            text: value,
+            completed: false
+        }
+    );
+
+    e.target.addTodo.value = '';
+
+    renderTodos(todos, filters);
+
+    console.log(todos);
+});
+
+
+
+
+
+
+removeBtn.addEventListener('click', function () {    
+    
+    todos.forEach(function (todo, idx) {
+        todos.splice(idx, 1); 
+    });
+
+    renderTodos(todos, filters);
+
+    console.log(todos)
+});
+
+
 
 
 /*

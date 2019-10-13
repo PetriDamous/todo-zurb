@@ -1,9 +1,17 @@
 <h1>Todo App</h1>
 
-<input id="search-field" type="text" placeholder="Search">
+<form id="add-form">
+    <input type="text" placeholder="Add todo" name="addTodo">
+
+    <button type="submit" class="button primary">Add item</button>
+</form>
+
+
+
+<button id="remove-btn" type="button" class="button warning">Delete All</button>
+
+<input id="search-field" type="text" placeholder="Search for Todo">
 
 <h2 id="incomplete"></h2>
-
-<button id="add-btn" type="button" class="button primary">Add item</button>
 
 <div id='todo-items'></div>
