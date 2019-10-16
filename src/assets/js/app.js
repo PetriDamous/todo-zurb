@@ -16,24 +16,17 @@ require('foundation-sites');
 
 $(document).foundation();
 
-const todos = [
-    {
-        text: 'study JavaScript',
-        completed: true
-    }, {
-        text: 'finish Sass exercise',
-        completed: false
-    }, {
-        text: 'complete SVG exercise',
-        completed: false       
-    }, {
-        text: 'feed the monkey',
-        completed: true      
-    }, {
-        text: 'beat mega man x9',
-        completed: false
-    }
-];
+let todos = [];
+
+const todosJSON = localStorage.getItem('todos');
+
+console.log(todosJSON)
+
+if (todosJSON !== null) {
+    todos = JSON.parse(todosJSON);
+}
+
+console.log(todos);
 
 // Elements
 const incomplete = document.getElementById('incomplete');
@@ -41,12 +34,14 @@ const todoItems = document.getElementById('todo-items');
 
 // Components
 const addForm = document.getElementById('add-form');
-const removeBtn = document.getElementById('remove-btn');
+const deleteAll = document.getElementById('delete-all');
 const searchField = document.getElementById('search-field');
+const hideComplete = document.getElementById('hide-complete');
 
 // Filters
 const filters = {
-    searchTodo: ''
+    searchTodo: '',
+    hideCompleted: false
 }
 
 
@@ -55,15 +50,31 @@ function renderTodos (todos, filters) {
         return todo.text.toLowerCase().includes(filters.searchTodo.toLowerCase());
     });
 
+    console.log(filteredTodos)
+
+    const filteredComplete = todos.filter(function (todo) {
+        return !todo.completed; 
+    });    
+
+    
+    // Clears todo-items area for re-rendering
     todoItems.innerHTML = '';
 
+    // Renders filtered todos
     filteredTodos.forEach(function (todo) {
-        const todoEl = document.createElement('p');
+        const todoEl = document.createElement('p');                       
         todoEl.className = 'todo';
-        todoEl.textContent = `${todo.text}: ${todo.completed}`;
-        todoItems.appendChild(todoEl);
-    });
 
+        if (todo.text.length > 0) {
+            todoEl.textContent = `${todo.text}: ${todo.completed}`;
+        } else {
+            todoEl.textContent = `Untiled to-do: ${todo.completed}`;
+        }
+                
+        todoItems.appendChild(todoEl);        
+    });    
+
+    // Changes the completed number
     getIncomplete(filteredTodos);
 }
 
@@ -82,41 +93,42 @@ searchField.addEventListener('input', function(e) {
     renderTodos(todos, filters);
 });
 
+
+hideComplete.addEventListener('change', function (e) {
+    filters.hideCompleted = e.target.checked; 
+    renderTodos(todos, filters);   
+});
+
+
 addForm.addEventListener('submit', function (e) {
     e.preventDefault();
     const value = e.target.addTodo.value;
-    console.log(e.target)
+    e.target.addTodo.value = '';
+
     todos.push(
         {
             text: value,
             completed: false
         }
     );
-
-    e.target.addTodo.value = '';
-
-    renderTodos(todos, filters);
-
-    console.log(todos);
-});
-
-
-
-
-
-
-removeBtn.addEventListener('click', function () {    
     
-    todos.forEach(function (todo, idx) {
-        todos.splice(idx, 1); 
+
+    todos.forEach(function (todo) {
+        todo.text.trim();
     });
 
-    renderTodos(todos, filters);
-
-    console.log(todos)
+    localStorage.setItem('todos', JSON.stringify(todos));
+    renderTodos(todos, filters);        
 });
 
 
+deleteAll.addEventListener('click', function () {    
+    localStorage.clear();
+    todos = [];
+    renderTodos(todos, filters);    
+});
+
+ 
 
 
 /*
