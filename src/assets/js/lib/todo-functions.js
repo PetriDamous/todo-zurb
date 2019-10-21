@@ -15,14 +15,33 @@ export const getSavedTodos = () => {
 
 // Creates todo element
 const generateTodoDOM = (todo) => {
-    const todoEl = document.createElement('p');                       
-    todoEl.className = 'todo';
 
+    // Create elements
+    const todoEl = document.createElement('div');    
+    const todoTxt = document.createElement('span');
+    const todoChk = document.createElement('input');
+    const deleteBtn = document.createElement('button');    
+    
+    // Assign class names
+    todoEl.className = 'todo';
+    deleteBtn.className = 'button warning';
+
+    // Assign attributes
+    todoChk.setAttribute('type', 'checkbox');
+
+    // Set text values
     if (todo.text.length > 0) {
-        todoEl.textContent = `${todo.text}: ${todo.completed}`;
+        todoTxt.textContent = `${todo.text}: ${todo.completed}`;
     } else {
-        todoEl.textContent = `Untiled to-do: ${todo.completed}`;
+        todoTxt.textContent = `Untiled to-do: ${todo.completed}`;
     }
+
+    deleteBtn.textContent = 'Delete';
+
+    // Append to parent
+    todoEl.appendChild(todoChk);
+    todoEl.appendChild(todoTxt);
+    todoEl.appendChild(deleteBtn);
             
     return todoEl;  
 }
@@ -65,8 +84,7 @@ export const saveTodo = (todos, value) => {
             text: value,
             completed: false
         }
-    );
-    
+    );    
 
     todos.forEach(function (todo) {
         todo.text.trim();
