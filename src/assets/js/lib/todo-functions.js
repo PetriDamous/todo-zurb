@@ -1,3 +1,6 @@
+// Imports
+const uuidv4 = require('uuid/v4');
+
 // Elements
 const incomplete = document.getElementById('incomplete');
 const todoItems = document.getElementById('todo-items');
@@ -81,6 +84,7 @@ export const renderTodos = (todos, filters) => {
 export const saveTodo = (todos, value) => {
     todos.push(
         {
+            id: uuidv4(),
             text: value,
             completed: false
         }
