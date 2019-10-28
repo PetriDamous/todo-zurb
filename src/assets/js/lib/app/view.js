@@ -1,20 +1,16 @@
 // Imports
-const uuidv4 = require('uuid/v4');
+import { _incomplete, _todoItems } from './global';
+import { getFilters } from './filters';
+
+
+
+const filters = getFilters();
 
 // Elements
-const incomplete = document.getElementById('incomplete');
-const todoItems = document.getElementById('todo-items');
+const incomplete = _incomplete();
+const todoItems = _todoItems();
 
-// Get todos from local storage
-export const getSavedTodos = () => {
-    const todosJSON = localStorage.getItem('todos');
 
-    if (todosJSON !== null) {
-        return JSON.parse(todosJSON);
-    } else {
-        return [];
-    }    
-}
 
 // Creates todo element
 const generateTodoDOM = (todo) => {
@@ -32,14 +28,19 @@ const generateTodoDOM = (todo) => {
     // Assign attributes
     todoChk.setAttribute('type', 'checkbox');
 
-    // Set text values
-    if (todo.text.length > 0) {
-        todoTxt.textContent = `${todo.text}: ${todo.completed}`;
-    } else {
-        todoTxt.textContent = `Untiled to-do: ${todo.completed}`;
-    }
-
+    // Set text values    
+    todoTxt.textContent = `${todo.text}: ${todo.completed}`;
     deleteBtn.textContent = 'Delete';
+
+    // Event listeners
+    deleteBtn.addEventListener('click', function() {
+        // const todos = getSavedTodos();
+        
+        removeTodo(todo.id);
+        saveTodo(todos);
+        renderTodos(todos, filters);
+        
+    });
 
     // Append to parent
     todoEl.appendChild(todoChk);
@@ -80,19 +81,3 @@ export const renderTodos = (todos, filters) => {
     generateSummaryDOM(filteredTodos);
 }
 
-// Adds todo item to array and local storage
-export const saveTodo = (todos, value) => {
-    todos.push(
-        {
-            id: uuidv4(),
-            text: value,
-            completed: false
-        }
-    );    
-
-    todos.forEach(function (todo) {
-        todo.text.trim();
-    });
-
-    localStorage.setItem('todos', JSON.stringify(todos));    
-}

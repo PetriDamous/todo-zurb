@@ -15,4 +15,4 @@ require('foundation-sites');
 
 $(document).foundation();
 
-require('./lib/todo-app');
+require('./lib/app/index');
