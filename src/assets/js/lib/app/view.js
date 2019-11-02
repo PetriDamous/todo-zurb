@@ -1,16 +1,12 @@
-// Imports
 import { _incomplete, _todoItems } from './global';
 import { getFilters } from './filters';
+import { getTodos, saveTodo, removeTodo } from './todos';
 
 
-
-const filters = getFilters();
 
 // Elements
 const incomplete = _incomplete();
 const todoItems = _todoItems();
-
-
 
 // Creates todo element
 const generateTodoDOM = (todo) => {
@@ -33,13 +29,10 @@ const generateTodoDOM = (todo) => {
     deleteBtn.textContent = 'Delete';
 
     // Event listeners
-    deleteBtn.addEventListener('click', function() {
-        // const todos = getSavedTodos();
-        
+    deleteBtn.addEventListener('click', function() {        
         removeTodo(todo.id);
-        saveTodo(todos);
-        renderTodos(todos, filters);
-        
+        saveTodo();
+        renderTodos();        
     });
 
     // Append to parent
@@ -60,7 +53,10 @@ const generateSummaryDOM = (todos) => {
 }
 
 // Render todos to DOM
-export const renderTodos = (todos, filters) => {
+const renderTodos = () => {
+    const filters = getFilters();
+    const todos = getTodos();
+
     let filteredTodos = todos.filter(function (todo) {
         const searchTextMatch = todo.text.toLowerCase().includes(filters.searchTodo.toLowerCase());
         const searchCompletedMatch = !filters.hideCompleted || !todo.completed;
@@ -81,3 +77,4 @@ export const renderTodos = (todos, filters) => {
     generateSummaryDOM(filteredTodos);
 }
 
+export { renderTodos };

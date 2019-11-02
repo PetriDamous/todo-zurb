@@ -27,13 +27,19 @@ const removeTodo = (id) => {
     todos.splice(todoIdx, 1);    
 }
 
+// Deletes all to-dos
+const clearAll = () => {
+    localStorage.clear();
+    todos = loadTodos();    
+}
+
 // Adds todo item to array 
 const createTodo = (value) => {
     todos.push(
         {
             id: uuidv4(),
             text: value,
-            completed: true
+            completed: false
         }
     );    
 
@@ -50,4 +56,4 @@ todos = loadTodos();
 
 const getTodos = () => todos;
 
-export { getTodos, createTodo, saveTodo, removeTodo };
+export { getTodos, createTodo, saveTodo, removeTodo, clearAll };
