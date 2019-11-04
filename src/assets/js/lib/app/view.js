@@ -23,6 +23,7 @@ const generateTodoDOM = (todo) => {
 
     // Assign attributes
     todoChk.setAttribute('type', 'checkbox');
+    todoChk.checked = todo.completed;
 
     // Set text values    
     todoTxt.textContent = `${todo.text}: ${todo.completed}`;
@@ -35,6 +36,12 @@ const generateTodoDOM = (todo) => {
         renderTodos();        
     });
 
+    todoChk.addEventListener('change', function(e) {        
+        todo.completed = e.target.checked;        
+        saveTodo();
+        renderTodos();               
+    });    
+
     // Append to parent
     todoEl.appendChild(todoChk);
     todoEl.appendChild(todoTxt);
@@ -45,6 +52,8 @@ const generateTodoDOM = (todo) => {
 
 // Changes the completed number of todos
 const generateSummaryDOM = (todos) => {
+    
+
     const todoIncomplete = todos.filter(function(todo) {
         return !todo.completed;
     });    
@@ -55,7 +64,7 @@ const generateSummaryDOM = (todos) => {
 // Render todos to DOM
 const renderTodos = () => {
     const filters = getFilters();
-    const todos = getTodos();
+    const todos = getTodos();    
 
     let filteredTodos = todos.filter(function (todo) {
         const searchTextMatch = todo.text.toLowerCase().includes(filters.searchTodo.toLowerCase());

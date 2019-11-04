@@ -3,17 +3,9 @@ import { setFilters } from './filters';
 import { renderTodos } from './view';
 import { _addForm, _deleteAll, _searchField, _hideComplete } from './global';
 
+const check = document.querySelectorAll('.todo input[type="checkbox"]');
 
-
-// createTodo('puppy');
-// console.log(getTodos());
-// saveTodo();
-// removeTodo("3aca5fb5-4c50-45c4-a364-df7f86a3ec9a");
-// saveTodo();
-
-
-
-
+    console.log(check);
 
 // Components
 const addForm = _addForm();
@@ -30,7 +22,7 @@ searchField.addEventListener('input', function(e) {
 
 
 hideComplete.addEventListener('change', function (e) {
-    setFilters(e.target.value); 
+    setFilters(e.target.checked); 
     renderTodos();   
 });
 
