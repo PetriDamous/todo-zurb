@@ -3,10 +3,6 @@ import { setFilters } from './filters';
 import { renderTodos } from './view';
 import { _addForm, _deleteAll, _searchField, _hideComplete } from './global';
 
-const check = document.querySelectorAll('.todo input[type="checkbox"]');
-
-    console.log(check);
-
 // Components
 const addForm = _addForm();
 const deleteAll = _deleteAll();
