@@ -58,7 +58,7 @@ const generateSummaryDOM = (todos) => {
         return !todo.completed;
     });    
 
-    incomplete.textContent = `You have ${todoIncomplete.length} todos left.`;
+    incomplete.textContent = `${todoIncomplete.length} tasks.`;
 }
 
 // Render todos to DOM
