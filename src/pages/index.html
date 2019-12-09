@@ -1,4 +1,49 @@
-<h1>Todo App</h1>
+<header class="title-bar">
+    <button class="menu-icon" type="button"></button>
+    <h1>Current Date</h1>
+    <p id="incomplete"></p>    
+    <button class="button">+</button>    
+
+
+</header>
+
+<div class="warning progress">
+        <div class="progress-meter" style="width: 50%">
+            <p class="progress-meter-text">50% Complete</p>
+        </div>
+    </div>
+
+    <input id="search-field" type="text" placeholder="Search for Todo">
+
+<div>
+    <form id="add-form">
+        <input type="text" placeholder="Add todo" name="addTodo">    
+        <button type="submit" class="button primary">Add item</button>
+    </form>     
+</div>
+
+<div id='todo-items'></div>
+
+<div>
+    <button id="delete-all" type="button" class="button warning">Delete All</button>
+    <label>
+        <input id="hide-complete" type="checkbox"> Hide Complete
+    </label>
+    <div>Theme
+        
+        <span class="switch tiny">
+            <input id="tinySwitch"  class="switch-input" type="checkbox" name="exampleSwitch">
+            <label for="tinySwitch" class="switch-paddle"></label>           
+        </span>
+        
+    </div>
+    <div>Sort by</div>
+    <div>Select all</div>
+    <div>delete selected</div>
+    <div>trash</div>
+</div>
+
+<!-- <h1>Todo App</h1>
 
 <form id="add-form">
     <input type="text" placeholder="Add todo" name="addTodo">
@@ -15,4 +60,4 @@
 
 <h2 id="incomplete"></h2>
 
-<div id='todo-items'></div>
+<div id='todo-items'></div> -->
