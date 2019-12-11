@@ -15,4 +15,4 @@ require('foundation-sites');
 
 $(document).foundation();
 
-require('./lib/app/index');
+// require('./lib/app/index');
