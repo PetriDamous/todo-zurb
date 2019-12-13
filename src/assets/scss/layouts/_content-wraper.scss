@@ -4,8 +4,21 @@
     // position: absolute;
     // left: 50%;
     width: 80%;
-    height: 710px;
-    overflow-y: hidden;    
-    margin: 2% auto;
+    // height: 710px;
+    height: 85vh;
+    overflow-y: scroll;    
+    margin: 5vh auto;
     border: 2px solid black;
+}
+
+.wrapper {
+    width: 80%;
+    margin: 5vh auto;
+    // border: 2px solid black; 
+    max-width: 1295px; 
+}
+
+.nav {
+    max-height: 91vh;
+    overflow: scroll;
 }
